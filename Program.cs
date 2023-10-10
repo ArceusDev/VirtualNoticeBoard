@@ -1,6 +1,5 @@
-
-using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
+using VirtualNoticeBoard.Contracts;
+using VirtualNoticeBoard.Repository;
 
 namespace VirtualNoticeBoard
 {
@@ -8,17 +7,13 @@ namespace VirtualNoticeBoard
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddSingleton<DapperContext>();
+            builder.Services.AddScoped<IVNB, VNBRepository>();
             builder.Services.AddControllers();
-            builder.Services.AddDbContext<VirtualNoticeBoardDBContext>
-                (
-                    options => options.UseSqlServer(builder.Configuration.GetConnectionString("VirtualNoticeBoardDB"))
-                );
-
-
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
