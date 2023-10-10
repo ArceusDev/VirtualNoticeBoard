@@ -18,10 +18,7 @@ namespace VirtualNoticeBoard
                     options => options.UseSqlServer(builder.Configuration.GetConnectionString("VirtualNoticeBoardDB"))
                 );
 
-            foreach (var service in builder.Services)
-            {
-                Console.WriteLine($"{service.ServiceType}");
-            }
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
